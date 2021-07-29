@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UsuarioLogin } from '../model/UsuarioLogin';
@@ -14,6 +14,14 @@ export class AuthService {
     private http: HttpClient
   ) { }
 
+  token = {
+    headers: new HttpHeaders().set('Authorization', environment.token)
+  }
+
+  refreshToken() {
+    this.token = { headers: new HttpHeaders().set('Authorization', environment.token)}
+  }
+
   entrar(usuarioLogin: UsuarioLogin): Observable<UsuarioLogin> {
     return this.http.post<UsuarioLogin>('http://localhost:8080/usuarios/login', usuarioLogin)
   }
@@ -23,7 +31,7 @@ export class AuthService {
   }
 
   getByIdUser(id: number): Observable<Usuario>{
-    return this.http.get<Usuario>(`http://localhost:8080/usuarios/${id}`)
+    return this.http.get<Usuario>(`http://localhost:8080/usuarios/${id}`, this.token)
   }
 
   logado() {

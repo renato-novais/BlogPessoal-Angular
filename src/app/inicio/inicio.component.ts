@@ -44,30 +44,36 @@ export class InicioComponent implements OnInit {
   }
 
   getAllTemas(){
+    this.temaService.refreshToken()
     this.temaService.getAllTema().subscribe((resp: Tema[]) => {
       this.listaTemas = resp
     })
   }
 
   findByIdTema(){
+    this.temaService.refreshToken()
     this.temaService.getByIdTema(this.idTema).subscribe((resp: Tema) => {
       this.tema = resp
     })
   }
 
   getAllPostagens(){
+    this.postagemService.refreshToken()
     this.postagemService.getAllPostagens().subscribe((resp: Postagem[]) => {
       this.listaPostagens = resp
     })
   }
 
   findByIdUser(){
+    this.authService.refreshToken()
     this.authService.getByIdUser(environment.id).subscribe((resp: Usuario) => {
       this.user = resp
     })
   }
 
   publicar(){
+    this.postagemService.refreshToken()
+
     this.tema.id = this.idTema
     this.postagem.tema = this.tema
 
