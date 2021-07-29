@@ -1,3 +1,4 @@
+import { AuthService } from './../service/auth.service';
 import { Usuario } from './../model/Usuario';
 import { TemaService } from './../service/tema.service';
 import { PostagemService } from './../service/postagem.service';
@@ -27,14 +28,14 @@ export class InicioComponent implements OnInit {
   constructor(
     private router: Router,
     private postagemService: PostagemService,
-    private temaService: TemaService
+    private temaService: TemaService,
+    private authService: AuthService 
 
   ) { }
 
   ngOnInit() {
 
     if(environment.token == ''){
-      /* alert('Sua seção expirou, faça o login novamente.') */
       this.router.navigate(['/entrar'])
     }
 
@@ -60,6 +61,12 @@ export class InicioComponent implements OnInit {
     })
   }
 
+  findByIdUser(){
+    this.authService.getByIdUser(environment.id).subscribe((resp: Usuario) => {
+      this.user = resp
+    })
+  }
+
   publicar(){
     this.tema.id = this.idTema
     this.postagem.tema = this.tema
@@ -71,7 +78,7 @@ export class InicioComponent implements OnInit {
       this.postagem = resp
       alert('Postagem realizada com sucesso')
       this.postagem = new Postagem
-      this.getAllPostagens
+      this.getAllPostagens()
     })
   }
 

@@ -26,59 +26,61 @@
 
 </div>
 
-<div class="container mb-5 mt-5" id="postagens">
-
+<section class="container mb-5 mt-5" id="postagens">
   <nav>
     <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
 
       <button class="nav-link active text-secondary font-weight-bold" id="nav-todasPostagens-tab" data-bs-toggle="tab" data-bs-target="#todasPostagens" type="button" role="tab" aria-controls="nav-todasPostagens" aria-selected="true">Todas as Postagens</button>
 
-      <button class="nav-link text-secondary font-weight-bold" id="nav-minhasPostagens-tab" data-bs-toggle="tab" data-bs-target="#minhasPostagens" type="button" role="tab" aria-controls="nav-minhasPostagens" aria-selected="false">Minhas Postagens</button>
+      <button (click)='findByIdUser()' class="nav-link text-secondary font-weight-bold" id="nav-minhasPostagens-tab" data-bs-toggle="tab" data-bs-target="#minhasPostagens" type="button" role="tab" aria-controls="nav-minhasPostagens" aria-selected="false">Minhas Postagens</button>
 
       <button class="nav-link text-secondary font-weight-bold" id="nav-postagemTema-tab" data-bs-toggle="tab" data-bs-target="#postagemTema" type="button" role="tab" aria-controls="nav-postagemTema" aria-selected="false">Postagens por tema</button>
 
     </div>
   </nav>
 
+  <div class="tab-content mt-5" id="nav-tabContent">
 
-  <div class="card-group">
-  
-        <div class="card text-center text-dark bg-light mb-3" style="max-width: 18rem;" *ngFor='let item of listaPostagens'>
+    <div class="tab-pane fade show active" id="todasPostagens" role="tabpanel" aria-labelledby="nav-todasPostagens-tab">
+      
+      <div class="card-group">
+        <div class="card text-center text-dark bg-light mb-1 ms-3" style="width: 18rem;" *ngFor='let item of listaPostagens'>
           <div class="card-body">
-            <h5 class="card-title">{{item.titulo}}</h5>
-            <p class="card-text">{{item.texto}}</p>
-            <p class="card-text"><small class="text-muted">{{item.data}}</small></p>
+            <h5 class="card-title m-0">{{item.titulo}}</h5>
+            <small class="text-muted"> Tema: {{item.tema.descricao}}</small>
+            <p class="card-text mt-3">{{item.texto}}</p>
+            <p class="card-text"><small class="text-muted">{{item.data | date: 'dd/MM/yyyy'}} às {{item.data | date: 'HH:mm'}}</small></p>
             <p class="card-text"><small class="text-muted">by:{{item.usuario.nome}}</small></p>
           </div>
         </div>
-
-    
-  </div>
-
-
-
-
-    
-
-  
-
-
-
-
-
-
-  <div class="tab-content" id="nav-tabContent">
-
-    <div class="tab-pane fade show active" id="todasPostagens" role="tabpanel" aria-labelledby="nav-todasPostagens-tab">
-      Todas as postagens
+       </div>
     </div>
 
     <div class="tab-pane fade" id="minhasPostagens" role="tabpanel" aria-labelledby="nav-minhasPostagens-tab">
-      Minhas postagens
+      
+      <div class="card-group">
+        <div class="card text-center text-dark bg-light mb-1 ms-3" style="width: 18rem;" *ngFor='let item of user.postagem'>
+          <div class="card-body">
+            <h5 class="card-title m-0">{{item.titulo}}</h5>
+            <small class="text-muted"> Tema: {{item.tema.descricao}}</small>
+            <p class="card-text mt-3">{{item.texto}}</p>
+            <p class="card-text"><small class="text-muted">{{item.data | date: 'dd/MM/yyyy'}} às {{item.data | date: 'HH:mm'}}</small></p>
+          </div>
+        </div>
+       </div>
     </div>
 
     <div class="tab-pane fade" id="postagemTema" role="tabpanel" aria-labelledby="nav-postagemTema-tab">
-      Postagens por tema
+      
+      <div class="card-group" *ngFor = 'let tema of listaTemas'>
+        <div class="card text-center text-dark bg-light mb-1 ms-3" style="width: 18rem;" *ngFor='let item of tema.postagem'>
+          <div class="card-body">
+            <h5 class="card-title m-0">{{item.titulo}}</h5>
+            <p class="card-text mt-3">{{item.texto}}</p>
+            <p class="card-text"><small class="text-muted">{{item.data | date: 'dd/MM/yyyy'}} às {{item.data | date: 'HH:mm'}}</small></p>
+            <p class="card-text"><small class="text-muted">by:{{item.usuario.nome}}</small></p>
+          </div>
+        </div>
     </div>
 
   </div>
