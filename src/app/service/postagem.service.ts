@@ -11,12 +11,20 @@ export class PostagemService {
 
   constructor(private http: HttpClient) { }
 
-  token = {    
+  token = {
     headers: new HttpHeaders().set('Authorization', environment.token)
   }
 
+  refreshToken() {
+    this.token = { headers: new HttpHeaders().set('Authorization', environment.token)}
+  }
+
   getAllPostagens(): Observable<Postagem[]> {
-    return this.http.get<Postagem[]>('http://localhost:8080/postagens', this.token)
+    return this.http.get<Postagem[]>(`http://localhost:8080/postagens`, this.token)
+  }
+
+  getById(id: number): Observable<Postagem> {
+    return this.http.get<Postagem>(`http://localhost:8080/${id}`, this.token)
   }
 
   postPostagem(postagem: Postagem): Observable<Postagem>    {
