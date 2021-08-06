@@ -3,6 +3,7 @@ import { Tema } from './../model/Tema';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
+import { AlertasService } from '../service/alertas.service';
 
 @Component({
   selector: 'app-tema',
@@ -13,7 +14,11 @@ export class TemaComponent implements OnInit {
   tema: Tema = new Tema();
   listaTemas: Tema[];
 
-  constructor(private router: Router, private temaService: TemaService) {}
+  constructor(
+    private router: Router,
+    private temaService: TemaService,
+    private alertas: AlertasService
+    ) {}
 
   ngOnInit() {
     if (environment.token == '') {
@@ -32,7 +37,7 @@ export class TemaComponent implements OnInit {
   cadastrar() {
     this.temaService.postTema(this.tema).subscribe((resp: Tema) => {
       this.tema = resp
-      alert('Tema cadastrado com sucesso!')
+      this.alertas.showAlertSuccess('Tema cadastrado com sucesso!')
       this.findAllTemas()
       this.tema = new Tema()
     });

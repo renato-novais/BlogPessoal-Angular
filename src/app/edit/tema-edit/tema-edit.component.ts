@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TemaService } from './../../service/tema.service';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
+import { AlertasService } from 'src/app/service/alertas.service';
 
 @Component({
   selector: 'app-tema-edit',
@@ -16,7 +17,8 @@ export class TemaEditComponent implements OnInit {
   constructor(
     private temaService: TemaService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private alertas: AlertasService
   ) { }
 
   ngOnInit() {
