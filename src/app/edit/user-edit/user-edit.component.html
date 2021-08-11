@@ -36,7 +36,7 @@
                     placeholder="Confirme sua senha">
             </div>
 
-            <div class="form-group mt-3">
+            <div *ngIf='authService.adm()' class="form-group mt-3">
                 <label for="tipo">Tipo de Usuário</label>
                 <select class="form-control" name="tipo" id="tipo" (change)='tipoUsuario($event)'>
                     <option>Selecione um tipo de usuário:</option>
