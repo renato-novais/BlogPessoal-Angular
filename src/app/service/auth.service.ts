@@ -23,15 +23,15 @@ export class AuthService {
   }
 
   entrar(usuarioLogin: UsuarioLogin): Observable<UsuarioLogin> {
-    return this.http.post<UsuarioLogin>('http://localhost:8080/usuarios/login', usuarioLogin)
+    return this.http.post<UsuarioLogin>('https://blogpessoal-devnovais.herokuapp.com/usuarios/login', usuarioLogin)
   }
 
   cadastrar(usuario: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>('http://localhost:8080/usuarios/cadastro', usuario)
+    return this.http.post<Usuario>('https://blogpessoal-devnovais.herokuapp.com/usuarios/cadastro', usuario)
   }
 
   getByIdUser(id: number): Observable<Usuario>{
-    return this.http.get<Usuario>(`http://localhost:8080/usuarios/${id}`, this.token)
+    return this.http.get<Usuario>(`https://blogpessoal-devnovais.herokuapp.com/usuarios/${id}`, this.token)
   }
 
   logado() {
